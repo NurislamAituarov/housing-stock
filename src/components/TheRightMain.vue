@@ -89,6 +89,7 @@ const store = useStore();
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
   p {
     font-size: 14px;
   }

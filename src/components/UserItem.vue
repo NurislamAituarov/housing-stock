@@ -52,6 +52,12 @@ const store = useStore();
     flex: 1;
     padding: 12.5px 20px;
     font-size: 14px;
+    p {
+      font-weight: 600;
+    }
+    span {
+      font-weight: 400;
+    }
   }
 }
 

@@ -71,6 +71,7 @@ function getUserByName(arr, text) {
 
   p {
     color: var(--text-color-dark);
+    font-weight: 600;
   }
   span {
     font-size: 14px;

@@ -33,6 +33,7 @@ const onInput = debounce(() => {
     display: block;
     margin-bottom: 5px;
     color: var(--text-color-dark);
+    font-weight: 600;
   }
   input {
     width: 100%;
