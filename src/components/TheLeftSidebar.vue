@@ -37,6 +37,7 @@ async function searchUser(value) {
     );
 
     if (res.status === 404) {
+      store.dispatch("removeUsers");
       throw "not user";
     }
 
@@ -56,7 +57,7 @@ async function searchUser(value) {
 
 function getUserByName(arr, text) {
   const filteredUsers = arr.filter((el) => {
-    return el.name.includes(text);
+    return el.name.toLowerCase().includes(text.toLowerCase());
   });
 
   return filteredUsers;
