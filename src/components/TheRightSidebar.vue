@@ -1,18 +1,18 @@
 <template>
-  <div class="right__sidebar">
+  <div v-if="store.state.user" class="right__sidebar">
     <div class="avatar">
       <PlaceholderImg width="120px" height="120px" />
     </div>
     <div class="user__info">
-      <p class="ussr__name">fffffffff</p>
+      <p class="ussr__name">{{ store.state.user.name }}</p>
 
       <div class="user__email">
         <p>email:</p>
-        <span>ppppppppppppp</span>
+        <span>{{ store.state.user.email }}</span>
       </div>
       <div class="user__phone">
         <p>phone:</p>
-        <span>56666666666666666</span>
+        <span>{{ store.state.user.phone }}</span>
       </div>
 
       <div class="user__about">
@@ -29,10 +29,21 @@
       </div>
     </div>
   </div>
+
+  <div v-else class="not-user__wrapper">
+    <p>Выберите сотрудника, чтобы посмотреть его профиль</p>
+  </div>
 </template>
 
 <script setup>
+import { useStore } from "vuex";
 import PlaceholderImg from "./svg/PlaceholderImg.vue";
+
+defineProps({
+  user: { type: Object, default: {} },
+});
+
+const store = useStore();
 </script>
 
 <style scoped lang="scss">
@@ -53,6 +64,7 @@ import PlaceholderImg from "./svg/PlaceholderImg.vue";
     flex: 1;
     .ussr__name {
       color: black;
+      font-weight: 600;
     }
 
     div {
@@ -70,6 +82,15 @@ import PlaceholderImg from "./svg/PlaceholderImg.vue";
       display: block;
       margin-top: 20px;
     }
+  }
+}
+
+.not-user__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    font-size: 14px;
   }
 }
 </style>

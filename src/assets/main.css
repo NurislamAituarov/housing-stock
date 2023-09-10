@@ -1,1 +1,12 @@
 @import './base.css';
+/* полоса прокрутки (скроллбар) */
+::-webkit-scrollbar {
+  width: 5px;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+  background-color: #76787d;
+  border-radius: 5px;
+}

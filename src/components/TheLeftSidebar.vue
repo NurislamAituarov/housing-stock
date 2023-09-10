@@ -3,21 +3,63 @@
     <BaseInput label="Поиск сотрудников" @search-user="searchUser" />
 
     <p>Результаты</p>
-    <span>начните поиск </span>
+    <TheQueryResult
+      v-if="!store.state.users.length || queryResult === 'not user'"
+      :queryResult="queryResult"
+    />
+    <UserItem />
   </div>
 </template>
 
 <script setup>
 import { useStore } from "vuex";
+import { ref } from "vue";
+
 import BaseInput from "./base/BaseInput.vue";
+import UserItem from "./UserItem.vue";
+import TheQueryResult from "./TheQueryResult.vue";
+
 const store = useStore();
+const queryResult = ref("");
 
 async function searchUser(value) {
-  const res = await fetch(
-    `https://jsonplaceholder.typicode.com/users/${value}`
-  );
-  const data = await res.json();
-  store.dispatch("addUser", data);
+  if (!value) {
+    store.dispatch("removeUsers");
+    queryResult.value = "";
+    return;
+  }
+
+  const isValue = isNaN(value) ? "" : value;
+  queryResult.value = "pending";
+  try {
+    const res = await fetch(
+      `https://jsonplaceholder.typicode.com/users/${isValue}`
+    );
+
+    if (res.status === 404) {
+      throw "not user";
+    }
+
+    const data = await res.json();
+    // Для проверки на массив или объект в ответе от сервера в зависимости от запроса по имени или ID
+    const users = Array.isArray(data) ? getUserByName(data, value) : data;
+
+    queryResult.value = "success";
+    // Если поиск по имени и в ответе в массиве нет имени
+    if (Array.isArray(users) && !users.length) queryResult.value = "not user";
+
+    store.dispatch("addUser", users);
+  } catch (err) {
+    queryResult.value = err;
+  }
+}
+
+function getUserByName(arr, text) {
+  const filteredUsers = arr.filter((el) => {
+    return el.name.includes(text);
+  });
+
+  return filteredUsers;
 }
 </script>
 
@@ -25,6 +67,7 @@ async function searchUser(value) {
 .left__sidebar {
   border-right: 1px solid #e0e0e0;
   padding: 30px 20px;
+  overflow-y: auto;
 
   p {
     color: var(--text-color-dark);

@@ -6,19 +6,24 @@
       id="name"
       type="text"
       placeholder="Введите Id или имя "
-      @input="emit('search-user', value)"
+      @input="onInput"
     />
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import { debounce } from "../../lib/helpers";
 
 const props = defineProps({
   label: { type: String, default: "" },
 });
 const emit = defineEmits(["search-user"]);
 const value = ref("");
+
+const onInput = debounce(() => {
+  emit("search-user", value.value);
+}, 500);
 </script>
 
 <style scoped lang="scss">
@@ -30,6 +35,7 @@ const value = ref("");
     color: var(--text-color-dark);
   }
   input {
+    width: 100%;
     outline: none;
     padding: 16px 24px;
     border-radius: 8px;
