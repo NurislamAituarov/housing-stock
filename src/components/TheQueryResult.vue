@@ -19,5 +19,8 @@ defineProps({
 <style scoped lang="scss">
 .wrapper__tips {
   margin-bottom: 10px;
+  span {
+    font-size: 14px;
+  }
 }
 </style>
