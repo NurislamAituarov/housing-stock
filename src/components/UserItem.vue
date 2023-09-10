@@ -1,8 +1,9 @@
 <template>
   <div
-    class="user__item"
     v-for="user of store.state.users"
     :key="user.id"
+    class="user__item"
+    :class="{ active: store.state.user?.id === user.id }"
     @click="store.dispatch('chooseUser', user)"
   >
     <div class="item__avatar">
@@ -51,6 +52,14 @@ const store = useStore();
     flex: 1;
     padding: 12.5px 20px;
     font-size: 14px;
+  }
+}
+
+.active {
+  border: 1px solid #e0e0e0;
+  .item__info {
+    transition: 0.3s;
+    background-color: #e0e0e0;
   }
 }
 </style>

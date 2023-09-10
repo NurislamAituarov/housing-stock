@@ -17,4 +17,10 @@ import TheMain from "./components/TheMain.vue";
   margin: 0 auto;
   padding: 50px 0;
 }
+
+@media screen and (max-width: 1260px) {
+  .wrapper {
+    padding: 50px 10px;
+  }
+}
 </style>

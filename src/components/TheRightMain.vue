@@ -93,4 +93,19 @@ const store = useStore();
     font-size: 14px;
   }
 }
+
+@media screen and (max-width: 1020px) {
+  .right__sidebar {
+    gap: 20px;
+  }
+}
+@media screen and (max-width: 920px) {
+  .right__sidebar {
+    gap: 20px;
+    flex-wrap: wrap;
+    div {
+      min-width: 250px;
+    }
+  }
+}
 </style>
